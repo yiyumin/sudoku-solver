@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import {
-  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -8,10 +8,11 @@ import {
   ModalBody,
   ModalFooter,
   VStack,
-  Button,
   ButtonGroup,
 } from '@chakra-ui/react';
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+
+import ArrowButton from './ArrowButton';
+import { pages } from './Pages';
 
 const dropIn = {
   hidden: {
@@ -35,20 +36,29 @@ const dropIn = {
   },
 };
 
-type ModalProps = {
-  header: string;
-  children: React.ReactNode;
-  prevPage: () => void;
-  nextPage: () => void;
+type InstructionModalProps = {
+  isOpen: boolean;
+  closeModal: () => void;
 };
 
-const InstructionModal = ({
-  header,
-  children,
-  prevPage,
-  nextPage,
-}: ModalProps) => {
-  const { isOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+const InstructionModal = ({ isOpen, closeModal }: InstructionModalProps) => {
+  const [page, setPage] = useState(0);
+
+  const prevPage = () => {
+    if (page < 1) return;
+    setPage((currPage) => currPage - 1);
+  };
+
+  const nextPage = () => {
+    if (page + 1 >= pages.length) return;
+    setPage((currPage) => currPage + 1);
+  };
+
+  const onClose = () => {
+    setPage(0);
+    closeModal();
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
@@ -59,20 +69,25 @@ const InstructionModal = ({
         animate='visible'
         exit='exit'
       >
-        <ModalHeader>{header}</ModalHeader>
+        <ModalHeader>{pages[page].header}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack spacing='7'>{children}</VStack>
+          <VStack spacing='7' minHeight={[400, 450]}>
+            {pages[page].content}
+          </VStack>
         </ModalBody>
-
         <ModalFooter>
           <ButtonGroup>
-            <Button onClick={prevPage}>
-              <ArrowBackIcon />
-            </Button>
-            <Button onClick={nextPage}>
-              <ArrowForwardIcon />
-            </Button>
+            <ArrowButton
+              direction='back'
+              isDisabled={page === 0}
+              onClick={prevPage}
+            />
+            <ArrowButton
+              direction='forward'
+              isDisabled={page + 1 >= pages.length}
+              onClick={nextPage}
+            />
           </ButtonGroup>
         </ModalFooter>
       </ModalContent>
