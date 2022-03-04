@@ -1,35 +1,35 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 import { CellUpdate } from '../lib/types';
 
 const useUpdate = () => {
-  const [updates, setUpdates] = useState<CellUpdate[]>([]);
-  const [currentUpdate, setCurrentUpdate] = useState<CellUpdate | null>(null);
-  const [index, setIndex] = useState(-1);
+  const updatesRef = useRef<CellUpdate[]>([]);
+  const pointerRef = useRef(-1);
+  const [update, setUpdate] = useState<CellUpdate | null>(null);
 
-  const setUpdateList = (updateList: CellUpdate[]) => {
-    setUpdates(updateList);
-    setCurrentUpdate(updateList[0]);
-    setIndex(0);
-  };
-
-  const resetUpdateList = useCallback(() => {
-    setUpdates([]);
-    setCurrentUpdate(null);
-    setIndex(-1);
+  const set = useCallback((updates: CellUpdate[]) => {
+    updatesRef.current = updates;
+    pointerRef.current = 0;
+    setUpdate(updatesRef.current[pointerRef.current]);
   }, []);
 
-  const incrementUpdate = () => {
-    setIndex(idx => idx + 1);
+  const clear = useCallback(() => {
+    updatesRef.current = [];
+    pointerRef.current = -1;
+    setUpdate(null);
+  }, []);
 
-    if (!updates[index]) {
-      resetUpdateList();
-    } else {
-      setCurrentUpdate(updates[index]);
+  const next = useCallback(() => {
+    if (pointerRef.current >= updatesRef.current.length) {
+      clear();
+      return;
     }
-  };
 
-  return [currentUpdate, setUpdateList, resetUpdateList, incrementUpdate] as const;
+    pointerRef.current++;
+    setUpdate(updatesRef.current[pointerRef.current]);
+  }, [clear]);
+
+  return [update, set, clear, next] as const;
 };
 
 export { useUpdate };
