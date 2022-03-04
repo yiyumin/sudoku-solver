@@ -14,30 +14,30 @@ type BoardProps = {
 
 const Board = ({ board, boardState, updateCell, clearMessage }: BoardProps) => (
   <StyledBoard>
-    {
-      boardState === 'default' ? (
-        board.map((row, rowIdx) => row.map((cell, columnIdx) =>
-          <EditCell
-            key={`${rowIdx}${columnIdx}`}
-            row={rowIdx}
-            column={columnIdx}
-            digit={cell.digit}
-            updateCell={updateCell}
-            clearMessage={clearMessage}
-          />
-        ))
-      ) : (
-        board.map((row, rowIdx) => row.map((cell, columnIdx) =>
-          <DisplayCell
-            key={`${rowIdx}${columnIdx}`}
-            row={rowIdx}
-            column={columnIdx}
-            digit={cell.digit}
-            state={cell.state}
-          />
-        ))
-      )
-    }
+    {boardState === 'default'
+      ? board.map((row, rowIdx) =>
+          row.map((cell, columnIdx) => (
+            <EditCell
+              key={`${rowIdx}${columnIdx}`}
+              row={rowIdx}
+              column={columnIdx}
+              digit={cell.digit}
+              updateCell={updateCell}
+              clearMessage={clearMessage}
+            />
+          ))
+        )
+      : board.map((row, rowIdx) =>
+          row.map((cell, columnIdx) => (
+            <DisplayCell
+              key={`${rowIdx}${columnIdx}`}
+              row={rowIdx}
+              column={columnIdx}
+              digit={cell.digit}
+              state={cell.state}
+            />
+          ))
+        )}
   </StyledBoard>
 );
 

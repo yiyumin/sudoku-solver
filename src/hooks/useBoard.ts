@@ -1,35 +1,49 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 import { createBoard } from '../lib/boardHelper';
-import { CellDigit, CellUpdate} from '../lib/types';
+import { CellDigit, CellUpdate } from '../lib/types';
 
 const useBoard = (currentUpdate: CellUpdate | null) => {
   const [board, setBoard] = useState(createBoard());
 
-  useEffect(() =>  {
-    if (!currentUpdate || currentUpdate === 'solved' || currentUpdate === 'unsolvable') {
+  useEffect(() => {
+    if (
+      !currentUpdate ||
+      currentUpdate === 'solved' ||
+      currentUpdate === 'unsolvable'
+    ) {
       return;
     }
 
     const updateBoard = (prevBoard: CellDigit[][]) => {
       const newBoard = prevBoard.map((boardRow, rowIdx) => {
         return boardRow.map((cellDigit, columnIdx) => {
-          return (rowIdx === currentUpdate.row && columnIdx === currentUpdate.column ? {digit: currentUpdate.digit, state: currentUpdate.state} : {...cellDigit, state: 'default'}) as CellDigit;
+          return (
+            rowIdx === currentUpdate.row && columnIdx === currentUpdate.column
+              ? { digit: currentUpdate.digit, state: currentUpdate.state }
+              : { ...cellDigit, state: 'default' }
+          ) as CellDigit;
         });
       });
 
       return newBoard;
     };
 
-    setBoard(prevBoard => updateBoard(prevBoard));
+    setBoard((prevBoard) => updateBoard(prevBoard));
   }, [currentUpdate]);
 
   const setCell = useCallback((row: number, column: number, digit: number) => {
-    setBoard(prevBoard => prevBoard.map((boardRow, rowIdx) => {
-      return boardRow.map((cellDigit, columnIdx) => {
-        return (rowIdx === row && columnIdx === column ? { digit: digit, state: 'default' } : cellDigit) as CellDigit;
-      });
-    }));
+    setBoard((prevBoard) =>
+      prevBoard.map((boardRow, rowIdx) => {
+        return boardRow.map((cellDigit, columnIdx) => {
+          return (
+            rowIdx === row && columnIdx === column
+              ? { digit: digit, state: 'default' }
+              : cellDigit
+          ) as CellDigit;
+        });
+      })
+    );
   }, []);
 
   const resetBoard = () => {

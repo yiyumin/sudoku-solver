@@ -8,7 +8,13 @@ type EditCellProps = {
   clearMessage: () => void;
 };
 
-const EditCell = ({ row, column, digit, updateCell, clearMessage}: EditCellProps) => {
+const EditCell = ({
+  row,
+  column,
+  digit,
+  updateCell,
+  clearMessage,
+}: EditCellProps) => {
   const onTextChange = (text: string): void => {
     clearMessage();
     const char = text.charAt(text.length - 1);
@@ -22,12 +28,12 @@ const EditCell = ({ row, column, digit, updateCell, clearMessage}: EditCellProps
   return (
     <StyledEditCell row={row} column={column}>
       <input
-          type='text'
-          value={digit || ''}
-          onChange={e => onTextChange(e.target.value)}
-          onBlur={() => clearMessage()}
-          inputMode='numeric'
-        />
+        type='text'
+        value={digit || ''}
+        onChange={(e) => onTextChange(e.target.value)}
+        onBlur={() => clearMessage()}
+        inputMode='numeric'
+      />
     </StyledEditCell>
   );
 };

@@ -13,13 +13,7 @@ type DisplayCellProps = {
 
 const DisplayCell = ({ row, column, digit, state }: DisplayCellProps) => (
   <StyledDisplayCell row={row} column={column} state={state}>
-    {state === 'default' ? (
-      <>
-        {digit || ''}
-      </>
-    ) : (
-      <AnimatedDigit digit={digit}/>
-    )}
+    {state === 'default' ? <>{digit || ''}</> : <AnimatedDigit digit={digit} />}
   </StyledDisplayCell>
 );
 

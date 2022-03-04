@@ -5,8 +5,8 @@ type CellState = 'default' | 'place_digit' | 'skip_over_digit' | 'backtrack';
 type UpdateFinishState = 'solved' | 'unsolvable';
 
 type CellDigit = {
-  digit: number,
-  state: CellState
+  digit: number;
+  state: CellState;
 };
 
 type DigitUpdate = {

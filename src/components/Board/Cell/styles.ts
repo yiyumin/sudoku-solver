@@ -4,10 +4,10 @@ import { CellState } from '../../../lib/types';
 import { borderColor } from '../../shared/styles';
 
 const CellStateColor: { [key in CellState]: string } = {
-  'default': '227, 230, 217',
-  'place_digit': '144, 238, 144',
-  'skip_over_digit': '251, 236, 93',
-  'backtrack': '248, 131, 121'
+  default: '227, 230, 217',
+  place_digit: '144, 238, 144',
+  skip_over_digit: '251, 236, 93',
+  backtrack: '248, 131, 121',
 };
 
 export type CellCssProps = {
@@ -26,8 +26,14 @@ const CellCss = css<CellCssProps>`
   font-weight: 500;
 
   border: 1px solid ${borderColor};
-  border-bottom: ${props => (props.row === 2 || props.row === 5) ? `3px solid ${borderColor}` : `1px solid ${borderColor}`};
-  border-right: ${props => (props.column === 2 || props.column === 5) ? `3px solid ${borderColor}` : `1px solid ${borderColor}`};
+  border-bottom: ${(props) =>
+    props.row === 2 || props.row === 5
+      ? `3px solid ${borderColor}`
+      : `1px solid ${borderColor}`};
+  border-right: ${(props) =>
+    props.column === 2 || props.column === 5
+      ? `3px solid ${borderColor}`
+      : `1px solid ${borderColor}`};
 `;
 
 export { CellStateColor, CellCss };

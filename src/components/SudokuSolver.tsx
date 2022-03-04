@@ -18,7 +18,7 @@ const SudokuSolver = () => {
   const toast = useToast({
     position: 'top-right',
     variant: 'subtle',
-    isClosable: true
+    isClosable: true,
   });
   const boardManager = useRef(new SudokuBoardManager());
 
@@ -27,12 +27,16 @@ const SudokuSolver = () => {
   const [visualSolveEnabled, setVisualSolveEnabled] = useState(false);
   const [solveInterval, setSolveInterval] = useState(250);
 
-  const [currentUpdate, setUpdateList, resetUpdateList, incrementUpdate] = useUpdate();
+  const [currentUpdate, setUpdateList, resetUpdateList, incrementUpdate] =
+    useUpdate();
   const [board, setBoard, setCell, resetBoard] = useBoard(currentUpdate);
 
-  useInterval(() => {
-    processUpdates();
-  }, isSolving ? solveInterval : null);
+  useInterval(
+    () => {
+      processUpdates();
+    },
+    isSolving ? solveInterval : null
+  );
 
   const processUpdates = () => {
     incrementUpdate();
@@ -44,7 +48,7 @@ const SudokuSolver = () => {
       clearMessage();
       toast({
         title: 'Solved!',
-        status: 'success'
+        status: 'success',
       });
     } else if (currentUpdate === 'unsolvable') {
       setBoardState('finished');
@@ -53,7 +57,7 @@ const SudokuSolver = () => {
       clearMessage();
       toast({
         title: 'Board is unsolvable!',
-        status: 'error'
+        status: 'error',
       });
     }
   };
@@ -73,7 +77,7 @@ const SudokuSolver = () => {
       title: 'Solving...',
       status: 'info',
       isClosable: false,
-      duration: null
+      duration: null,
     });
   };
 
@@ -81,13 +85,22 @@ const SudokuSolver = () => {
     const solved = boardManager.current.solve();
 
     if (solved) {
-      setBoard(boardManager.current.board.map((row, rowIdx) => row.map((digit, columnIdx) => ({ row: rowIdx,column: columnIdx, digit, state: 'default'}))));
+      setBoard(
+        boardManager.current.board.map((row, rowIdx) =>
+          row.map((digit, columnIdx) => ({
+            row: rowIdx,
+            column: columnIdx,
+            digit,
+            state: 'default',
+          }))
+        )
+      );
       setBoardState('finished');
 
       clearMessage();
       toast({
         title: 'Solved!',
-        status: 'success'
+        status: 'success',
       });
     } else {
       setBoardState('finished');
@@ -95,7 +108,7 @@ const SudokuSolver = () => {
       clearMessage();
       toast({
         title: 'Board is unsolvable!',
-        status: 'error'
+        status: 'error',
       });
     }
   };
@@ -130,8 +143,7 @@ const SudokuSolver = () => {
     if (digit === 0) {
       boardManager.current.removeDigit(row, column);
       setCell(row, column, digit);
-    }
-    else if (boardManager.current.canPlaceCoordinate(row, column, digit)) {
+    } else if (boardManager.current.canPlaceCoordinate(row, column, digit)) {
       boardManager.current.removeDigit(row, column);
       boardManager.current.placeDigit(row, column, digit);
       setCell(row, column, digit);
@@ -139,18 +151,27 @@ const SudokuSolver = () => {
       clearMessage();
       toast({
         title: `${digit} already exists in this row, column, or region`,
-        status: 'error'
+        status: 'error',
       });
     }
   };
 
   const generateBoard = () => {
     boardManager.current.generateSolvableBoard(17);
-    setBoard(boardManager.current.board.map((row, rowIdx) => row.map((digit, columnIdx) => ({ row: rowIdx,column: columnIdx, digit, state: 'default'}))));
+    setBoard(
+      boardManager.current.board.map((row, rowIdx) =>
+        row.map((digit, columnIdx) => ({
+          row: rowIdx,
+          column: columnIdx,
+          digit,
+          state: 'default',
+        }))
+      )
+    );
   };
 
   const toggleVisualSolve = () => {
-    setVisualSolveEnabled(prev => !prev);
+    setVisualSolveEnabled((prev) => !prev);
   };
 
   const setSpeed = (sps: number) => {
@@ -158,19 +179,24 @@ const SudokuSolver = () => {
   };
 
   return (
-    <Flex h='100vh' flexDirection='column' justifyContent='center' bg='darkslategray'>
+    <Flex
+      h='100vh'
+      flexDirection='column'
+      justifyContent='center'
+      bg='darkslategray'
+    >
       <Flex h='10%' justifyContent='center' alignItems='center'>
         <Heading color='white'>Sudoku Solver</Heading>
       </Flex>
       <Flex justifyContent='center' alignItems='center'>
         <Board
-            board={board}
-            boardState={boardState}
-            updateCell={updateCell}
-            clearMessage={clearMessage}
+          board={board}
+          boardState={boardState}
+          updateCell={updateCell}
+          clearMessage={clearMessage}
         />
       </Flex>
-        {/* solveSpeed={1000 / solveInterval} */}
+      {/* solveSpeed={1000 / solveInterval} */}
       <Flex h='20%' justifyContent='center'>
         <Controls
           boardState={boardState}

@@ -7,7 +7,7 @@ const StyledEditCell = styled.div`
 
   &:hover {
     background-color: rgba(${CellStateColor['default']}, 0.5);
-    }
+  }
 
   &:focus-within {
     background-color: rgba(${CellStateColor['default']}, 0.25);

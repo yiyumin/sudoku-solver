@@ -9,7 +9,7 @@ type StyledDisplayCellProps = CellCssProps & {
 
 const StyledDisplayCell = styled.div<StyledDisplayCellProps>`
   ${CellCss};
-  background-color: rgba(${props => CellStateColor[props.state]}, 0.75);
+  background-color: rgba(${(props) => CellStateColor[props.state]}, 0.75);
 `;
 
 export { StyledDisplayCell };
