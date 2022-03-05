@@ -1,4 +1,8 @@
-import { Flex, Text, Image } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+
+import Media from '../Media';
+
+import sudokuSolverImage from '../../../assets/images/sudoku_solver.webp';
 
 const Introduction = () => (
   <>
@@ -7,18 +11,13 @@ const Introduction = () => (
       application.
     </Text>
 
-    <Flex w='100%' justifyContent='space-around'>
-      <Image
-        w='40%'
-        src='https://via.placeholder.com/200.png'
-        alt='placeholder'
-      />
-      <Image
-        w='40%'
-        src='https://via.placeholder.com/200.png'
-        alt='placeholder'
-      />
-    </Flex>
+    <Media>
+      <Media.Image src={sudokuSolverImage} alt='Sudoku Solver' />
+    </Media>
+
+    <Text align='center' fontSize='sm' fontStyle='italic'>
+      Solve sudoku puzzles with backtracking!
+    </Text>
   </>
 );
 

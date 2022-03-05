@@ -1,4 +1,9 @@
-import { Text, Image } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+
+import Media from '../Media';
+
+import inputWebm from '../../../assets/videos/input.webm';
+import inputMp4 from '../../../assets/videos/input.mp4';
 
 const HowToInput = () => (
   <>
@@ -6,11 +11,14 @@ const HowToInput = () => (
       Start by entering digits into the board. Click on a cell and enter a digit
       between 1 and 9.
     </Text>
-    <Image
-      w='60%'
-      src='https://via.placeholder.com/200.png'
-      alt='placeholder'
-    />
+
+    <Media>
+      <Media.Gif>
+        <Media.GifSource src={inputWebm} type='video/webm' />
+        <Media.GifSource src={inputMp4} type='video/mp4' />
+      </Media.Gif>
+    </Media>
+
     <Text fontSize='xs' color='tomato'>
       *Digits may not be duplicated across any row, column, or region.
     </Text>

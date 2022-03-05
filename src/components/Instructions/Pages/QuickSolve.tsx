@@ -1,13 +1,19 @@
-import { Text, Image } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
+
+import Media from '../Media';
+
+import quickSolveWebm from '../../../assets/videos/quick_solve.webm';
+import quickSolveMp4 from '../../../assets/videos/quick_solve.mp4';
 
 const QuickSolve = () => (
   <>
     <Text>Next, click 'Solve' to instantly solve your sudoku puzzle!</Text>
-    <Image
-      w='60%'
-      src='https://via.placeholder.com/200.png'
-      alt='placeholder'
-    />
+    <Media>
+      <Media.Gif>
+        <Media.GifSource src={quickSolveWebm} type='video/webm' />
+        <Media.GifSource src={quickSolveMp4} type='video/mp4' />
+      </Media.Gif>
+    </Media>
   </>
 );
 
