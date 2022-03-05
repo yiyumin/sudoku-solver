@@ -42,25 +42,25 @@ type InstructionModalProps = {
 };
 
 const InstructionModal = ({ isOpen, closeModal }: InstructionModalProps) => {
-  const [page, setPage] = useState(0);
+  const [pageIdx, setPageIdx] = useState(0);
 
   const prevPage = () => {
-    if (page < 1) return;
-    setPage((currPage) => currPage - 1);
+    if (pageIdx < 1) return;
+    setPageIdx((currPage) => currPage - 1);
   };
 
   const nextPage = () => {
-    if (page + 1 >= pages.length) return;
-    setPage((currPage) => currPage + 1);
+    if (pageIdx + 1 >= pages.length) return;
+    setPageIdx((currPage) => currPage + 1);
   };
 
   const onClose = () => {
-    setPage(0);
+    setPageIdx(0);
     closeModal();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl' isCentered>
       <ModalOverlay />
 
       <ModalContent
@@ -69,23 +69,26 @@ const InstructionModal = ({ isOpen, closeModal }: InstructionModalProps) => {
         animate='visible'
         exit='exit'
       >
-        <ModalHeader>{pages[page].header}</ModalHeader>
+        <ModalHeader>{pages[pageIdx].header}</ModalHeader>
+
         <ModalCloseButton />
+
         <ModalBody>
-          <VStack spacing='7' minHeight={[400, 450]}>
-            {pages[page].content}
+          <VStack spacing='7' minHeight={[475, 500]}>
+            {pages[pageIdx].content}
           </VStack>
         </ModalBody>
+
         <ModalFooter>
           <ButtonGroup>
             <ArrowButton
               direction='back'
-              isDisabled={page === 0}
+              isDisabled={pageIdx === 0}
               onClick={prevPage}
             />
             <ArrowButton
               direction='forward'
-              isDisabled={page + 1 >= pages.length}
+              isDisabled={pageIdx + 1 >= pages.length}
               onClick={nextPage}
             />
           </ButtonGroup>
