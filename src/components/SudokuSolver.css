@@ -1,0 +1,10 @@
+.h-full {
+  height: 100vh;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .h-full {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+}

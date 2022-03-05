@@ -14,6 +14,9 @@ import { BoardState } from '../lib/types';
 import Board from './Board/Board';
 import Controls from './Controls/Controls';
 
+// custom styles
+import './SudokuSolver.css';
+
 const SudokuSolver = () => {
   const toast = useToast({
     position: 'top-right',
@@ -180,10 +183,10 @@ const SudokuSolver = () => {
 
   return (
     <Flex
-      h='100vh'
       flexDirection='column'
       justifyContent='center'
       bg='darkslategray'
+      className='h-full'
     >
       <Flex h='10%' justifyContent='center' alignItems='center'>
         <Heading color='white'>Sudoku Solver</Heading>
