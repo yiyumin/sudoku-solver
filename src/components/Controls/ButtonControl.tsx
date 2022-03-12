@@ -25,25 +25,25 @@ const ButtonControl = ({
         <Button
           onClick={generateBoard}
           isDisabled={boardState !== 'default'}
-          outline='solid 1px black'
+          outline='solid 1px darkslategray'
         >
           Random Board
         </Button>
         <Button
           onClick={solve}
           isDisabled={boardState !== 'default'}
-          outline='solid 1px black'
+          outline='solid 1px darkslategray'
         >
           Solve
         </Button>
         <Button
           onClick={boardState === 'solving' ? pause : resume}
           isDisabled={boardState !== 'solving' && boardState !== 'paused'}
-          outline='solid 1px black'
+          outline='solid 1px darkslategray'
         >
           {boardState === 'solving' ? 'Pause' : 'Resume'}
         </Button>
-        <Button onClick={clear} outline='solid 1px black'>
+        <Button onClick={clear} outline='solid 1px darkslategray'>
           Reset
         </Button>
       </ButtonGroup>
