@@ -1,7 +1,7 @@
 {
   "name": "sudoku_solver",
   "version": "0.1.0",
-  "homepage": "http://yiyumin.github.io/sudoku-solver",
+  "homepage": "https://sudoku-solver.yuminyi.com/",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
